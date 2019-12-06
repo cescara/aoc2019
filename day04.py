@@ -1,3 +1,6 @@
+from util import get_input
+
+
 def part1(password):
     if len(password) != 6:
         return False
@@ -42,15 +45,19 @@ def test_part2():
     assert part2("111122")
 
 
-if __name__ == '__main__':
-    with open("input/day04") as file:
+def main():
+    with open(get_input(__file__)) as file:
         pw_range = list(map(int, file.read().strip().split("-")))
 
-    pw_candidates_part1 = [pw for pw in range(pw_range[0], pw_range[1]) if part1(str(pw))]
-    print(len(pw_candidates_part1))
+    candidates_part1 = [password for password in range(pw_range[0], pw_range[1]) if part1(str(password))]
+    print(len(candidates_part1))
 
-    pw_candidates_part2 = [pw for pw in range(pw_range[0], pw_range[1]) if part2(str(pw))]
-    print(len(pw_candidates_part2))
+    candidates_part2 = [password for password in range(pw_range[0], pw_range[1]) if part2(str(password))]
+    print(len(candidates_part2))
+
+
+if __name__ == '__main__':
+    main()
 
 
 

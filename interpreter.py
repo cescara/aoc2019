@@ -1,9 +1,21 @@
 from typing import Iterator
 
 
-class Interpreter:
+def parse_instruction(instruction) -> Iterator[int]:
+    tmp = str(instruction)
+    if len(tmp) == 1:
+        tmp = tmp.zfill(2)
 
-    def __init__(self, program, input_):
+    yield int(tmp[-2:])
+    for mode in reversed(tmp[:-2]):
+        yield int(mode)
+
+    while True:
+        yield 0
+
+
+class Interpreter:
+    def __init__(self, program, input_ = 0):
         self.program = program
         self.input = input_
         self.idx: int = 0
@@ -39,7 +51,7 @@ class Interpreter:
 
     def run(self):
         while True:
-            instruction = self.parse_instruction(self.program[self.idx])
+            instruction = parse_instruction(self.program[self.idx])
             opcode = next(instruction)
 
             if opcode == 99:
@@ -68,15 +80,3 @@ class Interpreter:
             return self.program[self.idx]
         if mode == 1:
             return self.idx
-
-    def parse_instruction(self, instruction) -> Iterator[int]:
-        bla = str(instruction)
-        if len(bla) == 1:
-            bla = bla.zfill(2)
-
-        yield int(bla[-2:])
-        for mode in reversed(bla[:-2]):
-            yield int(mode)
-
-        while True:
-            yield 0

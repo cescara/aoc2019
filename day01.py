@@ -1,6 +1,4 @@
-def read_input(file_path):
-    with open(file_path) as file:
-        return [int(line.strip()) for line in file]
+from util import get_input
 
 
 def calculate_fuel(mass):
@@ -39,9 +37,13 @@ def test_part2():
     assert part2([100756]) == 50346
 
 
+def main():
+    with open(get_input(__file__)) as file:
+        values = [int(line.strip()) for line in file]
+
+    print(f"\nResult Part 1: {part1(values)}\n\n")
+    print(f"\nResult Part 2: {part2(values)}")
+
+
 if __name__ == '__main__':
-    values_ = read_input("input/day01")
-
-    print(f"\nResult Part 1: {part1(values_)}\n\n")
-    print(f"\nResult Part 2: {part2(values_)}")
-
+    main()
