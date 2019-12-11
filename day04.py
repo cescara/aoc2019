@@ -56,8 +56,5 @@ def main():
     print(len(candidates_part2))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
-
-
-
