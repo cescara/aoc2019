@@ -25,7 +25,7 @@ def main():
         file_input = file.read().strip()
 
     layers = [
-        file_input[layer : layer + 25 * 6]
+        file_input[layer: layer + 25 * 6]
         for layer in range(0, len(file_input), 25 * 6)
     ]
     part1(layers.copy())
