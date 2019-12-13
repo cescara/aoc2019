@@ -14,14 +14,14 @@ def observe(asteroids, current):
                 continue
 
             row_, col_ = row - current[0], col - current[1]
-            buckets[atan2(col_, row_)].append((col_, row_))
+            buckets[atan2(col_, row_)].append({"relative": (row_, col_), "original": (row, col)})
     return buckets
 
 
 def obliterate(targets):
     destroyed = []
     for bucket in targets:
-        targets[bucket] = deque(sorted(targets[bucket], key=lambda x: (abs(x[0]), abs(x[1]))))
+        targets[bucket] = deque(sorted(targets[bucket], key=lambda x: (abs(x["relative"][0]), abs(x["relative"][1]))))
 
     while sum([len(asteroids) for asteroids in targets.values()]):
         for bucket in sorted(targets, key=lambda x: -x):
@@ -47,9 +47,8 @@ def part1(asteroids):
 
 def part2(asteroids, origin):
     targets = observe(asteroids, origin)
-    results = obliterate(targets)
-    nr_200 = results[200]
-    return ((nr_200[1] + origin[0]) * 100) + nr_200[0] + origin[1]
+    nr_200 = obliterate(targets)[199]
+    return (nr_200["original"][1] * 100) + nr_200["original"][0]
 
 
 test_1_0 = """###
@@ -128,7 +127,7 @@ def test_part1():
 
 
 def test_part2():
-    assert part2(read_input(test_1_5.split("\n")), (11, 13)) == 802
+    assert part2(read_input(test_1_5.split("\n")), (13, 11)) == 802
 
 
 def read_input(file):
@@ -139,7 +138,7 @@ def main():
     with open(get_input(__file__)) as file:
         asteroids = read_input(file)
     print(part1(asteroids))
-    print(part2(asteroids, (22, 25)))
+    print(part2(asteroids, (25, 22)))
 
 
 if __name__ == "__main__":
