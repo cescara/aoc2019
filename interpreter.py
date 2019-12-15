@@ -33,6 +33,7 @@ class Interpreter:
         self.idx: int = 0
         self.output = []
         self.halt = False
+        self.stop = False
         self.relative_base = 0
         self.opcodes = {
             1: self.add,
@@ -100,6 +101,7 @@ class Interpreter:
         opcode = next(instruction)
 
         if opcode == 99:
+            self.stop = True
             self.halt = True
             return self.output
 

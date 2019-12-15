@@ -52,9 +52,9 @@ def part2(program):
             if (i, j) not in panels:
                 continue
             if panels[(i, j)][-1] == 0:
-                print(" ", end="")
+                print("░░", end="")
             else:
-                print("■", end="")
+                print("██", end="")
         print("")
 
 
